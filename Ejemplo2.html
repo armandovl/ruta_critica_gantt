@@ -1,0 +1,64 @@
+﻿<html>
+<head>
+   <title>Gantt Valdés</title>
+   <meta charset="UTF-8">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+    google.charts.load('current', {'packages':['gantt']});
+    google.charts.setOnLoadCallback(drawChart);
+
+
+    function toMilliseconds(semanas) {
+      return semanas *7 *24 * 60 * 60 * 1000;
+    }
+
+    function drawChart() {
+
+      var otherData = new google.visualization.DataTable();
+      otherData.addColumn('string', 'ID');
+      otherData.addColumn('string', 'Actividad');
+      otherData.addColumn('string', 'Recursos');
+      otherData.addColumn('date', 'Inicio');
+      otherData.addColumn('date', 'Fin');
+      otherData.addColumn('number', 'Duración');
+      otherData.addColumn('number', 'Porcentaje Avance');
+      otherData.addColumn('string', 'Antecedentes');
+
+/*para una actividad con holgura new Date(2016,4,29)*/
+
+      otherData.addRows([
+        ['0', '0.Inicio', 'Recurso1', new Date(2016, 4, 5), null, toMilliseconds(0), 100, null],
+        ['1', '1.Diagnóstico interno', 'Recurso1', null, null, toMilliseconds(1), 100, '0'],
+        ['2', '2.Diagnóstico externo', 'Recurso2', null, null, toMilliseconds(2), 100, '0'],
+        ['3', '3.Justificación de la idea de inversión', 'Recurso3', null, null, toMilliseconds(1), 70, '2,1'],
+        ['4', '4.Estudio de mercado', 'Recurso4', null, null, toMilliseconds(3), 0, '3'],
+        ['5', '5.Estudio de abasto de Materia Prima', 'Recurso5', null, null, toMilliseconds(3), 0, '3'],
+        ['6', '6.Estudio de organización social', null, null, null, toMilliseconds(2), 0, '3'],
+        ['7', '7.Localización', null, null, null, toMilliseconds(1), 0, '6,5,4'],
+        ['8', '8.Tamaño', null, null, null, toMilliseconds(2), 0, '6,5,4'],
+        ['9', '9.Ingeniería del Proyecto', null, null, null, toMilliseconds(4), 0, '8,7,6,5,4'],
+        ['10', '10.Organización Administrativa', 'Recurso10', null, null, toMilliseconds(1), 0, '9'],
+        ['11', '11.Presupuesto de inversiones', null, null, null, toMilliseconds(1), 0, '10'],
+        ['12', '12.Financiamiento', null, null, null, toMilliseconds(1), 0, '11'],
+        ['13', '13.Proyecciones de ingresos y egresos', null, null, null, toMilliseconds(1), 0, '12'],
+        ['14', '14.Cálculo de rentabilidad y riesgo', null, null, null, toMilliseconds(1), 0, '13'],
+        ['15', '15.Dictamen', null, null, null, toMilliseconds(1), 0, '14'],
+       
+
+      ]);
+
+      var options = {
+        height: 900,
+        
+      };
+
+      var chart = new google.visualization.Gantt(document.getElementById('chart_div'));
+
+      chart.draw(otherData, options);
+    }
+  </script>
+</head>
+<body>
+  <div id="chart_div"></div>
+</body>
+</html>

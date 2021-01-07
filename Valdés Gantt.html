@@ -1,0 +1,59 @@
+﻿<html>
+<head>
+   <title>Gantt Valdés</title>
+   <meta charset="UTF-8">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+    google.charts.load('current', {'packages':['gantt']});
+    google.charts.setOnLoadCallback(drawChart);
+
+
+    function toMilliseconds(meses) {
+      return meses *30 *24 * 60 * 60 * 1000;
+    }
+
+    function drawChart() {
+
+      var otherData = new google.visualization.DataTable();
+      otherData.addColumn('string', 'ID');
+      otherData.addColumn('string', 'Actividad');
+      otherData.addColumn('string', 'Recursos');
+      otherData.addColumn('date', 'Inicio');
+      otherData.addColumn('date', 'Fin');
+      otherData.addColumn('number', 'Duración');
+      otherData.addColumn('number', 'Porcentaje Avance');
+      otherData.addColumn('string', 'Act Anteceden');
+
+/*para una actividad con holgura e iniciar; new Date(2016,4,29)*/
+
+      otherData.addRows([
+        ['1', 'Trámites', 'Recurso1', new Date(2016,4,1), null, toMilliseconds(2), 60, null],
+        ['2', 'Adquisición y acondicionamiento', 'Recurso1', null, null, toMilliseconds(1), 100, '1'],
+        ['3', 'Construcción de obra civil', 'Recurso3', null, null, toMilliseconds(6), 100, '2'],
+        ['4', 'Adquisición e importación', '$20,000 de FIRA y $30,000 Crédito de la banca', new Date(2016,7,29), null, toMilliseconds(3), 50, '2'],
+        ['5', 'Fabricación de maquinaria', 'Recurso5', null, null, toMilliseconds(3), 0, '2'],
+        ['6', 'Adquisición de equipo', null,null, null, toMilliseconds(1), 0, '3'],
+        ['7', 'Contratación de fletes', 'Recurso5', null, null, toMilliseconds(1), 0, '4,5'],
+        ['8', 'Instalación de maquinaria', null, null, null, toMilliseconds(2), 0, '7,3'],
+        ['9', 'Capacitación de personal', null, null, null, toMilliseconds(1), 0, '8'],
+        ['10', 'Trámites y registros para la operación', 'Recurso10', null, null, toMilliseconds(3), 0, '2'],
+        ['11', 'Prueba de maquinaria', null, null, null, toMilliseconds(1), 0, '9'],
+        ['12', 'Inicio', '$20,000', null, null, toMilliseconds(1), 30, '11,6,10'],
+
+      ]);
+
+      var options = {
+        height: 600,
+        
+      };
+
+      var chart = new google.visualization.Gantt(document.getElementById('chart_div'));
+
+      chart.draw(otherData, options);
+    }
+  </script>
+</head>
+<body>
+  <div id="chart_div"></div>
+</body>
+</html>
